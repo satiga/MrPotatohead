@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
         Log.d("potato", "checkClicked: " );
         ImageView iv = (ImageView) findViewById(R.id.shoes);
         CheckBox checkbox = (CheckBox) v;
+        // to find the matching image for the box using its ID
         switch (checkbox.getId()) {
             case R.id.cb_arms:
                 iv = findViewById(R.id.arms);
@@ -51,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
                 iv = findViewById(R.id.mustache);
                 break;
         }
+        //changes the visibility of the image matching the checkBox
         if (checkbox.isChecked()) {
             iv.setVisibility(View.VISIBLE);
         }
