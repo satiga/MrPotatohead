@@ -7,12 +7,24 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        if (savedInstanceState != null) {
+            ArrayList<Integer> visibleImages =
+                    savedInstanceState.getIntegerArrayList("visibleImages");
+            for (int i = 0; i<visibleImages.size(); i++) {
+                ImageView iv = findViewById(visibleImages.get(i));
+                iv.setVisibility(View.VISIBLE);
+            }
+        }
+
     }
 
     public void checkClicked(View v) {
@@ -58,6 +70,23 @@ public class MainActivity extends AppCompatActivity {
         }
         if (!checkbox.isChecked()) {
             iv.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        ArrayList<Integer> visibleImg = new ArrayList<>();
+        ArrayList<Integer> imgId = new ArrayList<>(
+                Arrays.asList(  R.id.arms,R.id.shoes,R.id.eyes,
+                                R.id.nose,R.id.mouth,R.id.ears,
+                                R.id.eyebrows,R.id.glasses,
+                                R.id.hat,R.id.mustache));
+        for (int i=0; i<imgId.size(); i++) {
+            ImageView iv = findViewById(imgId.get(i));
+            if (iv.getVisibility() == View.VISIBLE){
+                visibleImg.add(imgId.get(i));
+            }
+        outState.putIntegerArrayList("visibleImages", visibleImg);
         }
     }
 }
